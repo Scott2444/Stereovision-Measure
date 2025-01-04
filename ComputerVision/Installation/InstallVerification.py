@@ -1,12 +1,15 @@
 from mmdet.apis import init_detector, inference_detector
 from mmengine.visualization import Visualizer
 import mmcv
+import os
 
-image_path = 'demo/demo.jpg'
+image_path = os.path.join("ComputerVision", "Installation", "demo", "demo.jpg")
 
 # Init and run the model
 config_file = 'rtmdet_tiny_8xb32-300e_coco.py'
 checkpoint_file = 'rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth'
+config_file = os.path.join("ComputerVision", "rtmdet_tiny_8xb32-300e_coco.py")
+checkpoint_file = os.path.join("ComputerVision", "rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth")
 model = init_detector(config_file, checkpoint_file, device='cpu')  # or device='cuda:0'
 result = inference_detector(model, image_path)
 

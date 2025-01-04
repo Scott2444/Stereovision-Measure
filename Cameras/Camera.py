@@ -8,21 +8,23 @@ class Camera:
         :type index: int
         :param position: Left camera or right camera
         :type position: String
+        :param display: Display captured frames in a window
+        :type display: bool
         :return: None
         :rtype: None
         """
         self.cam = cv.VideoCapture(index)
         self.__position = position
         _, frame = self.cam.read()
-        self.window = cv.imshow(f"{self.__position} Camera", frame)
+        cv.imshow(f"{self.__position} Camera", frame)
     def getFrame(self):
         """
         Capture the current camera image, return it, and display it
-        :return: None
-        :rtype: None
+        :return: Frame from the camera
+        :rtype: MatLike
         """
         _, frame = self.cam.read()
-        self.window = cv.imshow(f"{self.__position} Camera", frame)
+        cv.imshow(f"{self.__position} Camera", frame)
         return frame
     
     def __del__(self):
