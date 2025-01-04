@@ -15,13 +15,13 @@ result = inference_detector(model, image_path)
 # print(result)
 predictions = result.pred_instances
 print(predictions)
-print(predictions.bboxes.size())
-print(predictions.scores.size())
+# print(predictions.bboxes.size())
+# print(predictions.scores.size())
 
 # Display the results on the original image
 image = mmcv.imread(image_path,
                     channel_order='rgb')
 visualizer = Visualizer(image=image)
 # single bbox formatted as [xyxy]
-visualizer.draw_bboxes(predictions.bboxes[:3])
+visualizer.draw_bboxes(predictions.bboxes[:3])  # Only use top three results
 visualizer.show()
