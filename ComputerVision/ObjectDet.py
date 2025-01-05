@@ -26,4 +26,6 @@ class ObjectDet:
         :rtype: InstanceData
         """
         print("Beginning inference")
-        return inference_detector(self.model, frame).pred_instances
+        results = inference_detector(self.model, frame)
+        print(results)
+        return results.pred_instances

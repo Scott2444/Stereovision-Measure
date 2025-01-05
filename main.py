@@ -24,6 +24,8 @@ while True:
         rightFrame = rightCamera.getFrame()
         predictions = model.predict(leftFrame)
 
+        # Frames are np.ndarray type
+
         # Visualize - TEMPORARY
         visualizer = Visualizer(image=leftFrame)
         # single bbox formatted as [xyxy]

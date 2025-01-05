@@ -1,12 +1,15 @@
 import cv2 as cv
 
 # Open the default camera
-leftCam = cv.VideoCapture(0)
-rightCam = cv.VideoCapture(1)
+leftCam = cv.VideoCapture(1)
+rightCam = cv.VideoCapture(0)
 
 # Get the default frame width and height
-frame_width = int(leftCam.get(cv.CAP_PROP_FRAME_WIDTH))
-frame_height = int(leftCam.get(cv.CAP_PROP_FRAME_HEIGHT))
+frame_width = int(rightCam.get(cv.CAP_PROP_FRAME_WIDTH))
+frame_height = int(rightCam.get(cv.CAP_PROP_FRAME_HEIGHT))
+
+print(f"Width: {frame_width} px")
+print(f"Height: {frame_height} px")
 
 # Define the codec and create VideoWriter object
 fourcc = cv.VideoWriter_fourcc(*'mp4v')
