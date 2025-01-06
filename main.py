@@ -12,8 +12,14 @@ from mmengine.visualization import Visualizer
 CAMERAS_INDEX = {"left": 1, 
                  "right": 0}
 
+# ------------------------------------------------------------------
+
 leftCamera = Camera(CAMERAS_INDEX["left"], "Left", display=True)
 rightCamera = Camera(CAMERAS_INDEX["right"], "Right", display=True)
+
+# Get the default frame width and height
+frame_width = int(rightCamera.get(cv.CAP_PROP_FRAME_WIDTH))
+frame_height = int(rightCamera.get(cv.CAP_PROP_FRAME_HEIGHT))
 
 model = ObjectDet()
 

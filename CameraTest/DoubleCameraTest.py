@@ -1,3 +1,12 @@
+"""
+This script will test if OpenCV is able to capture frames from both cameras.
+
+It is good practice to run this script before running main.py for the first time.
+
+Author: Scott Haakenson
+Email: haakens3@msu.edu
+"""
+
 import cv2 as cv
 
 # Open the default camera
@@ -17,11 +26,17 @@ fourcc = cv.VideoWriter_fourcc(*'mp4v')
 
 while True:
     # Capture a frame and display it
-    _, leftFrame = leftCam.read()
-    cv.imshow('Left Camera', leftFrame)
+    success, leftFrame = leftCam.read()
+    if success:
+        cv.imshow('Left Camera', leftFrame)
+    else:
+        raise RuntimeError("Failed to grab frame from left cam, try to reattach camera")
 
-    _, rightFrame = rightCam.read()
-    cv.imshow('Right Camera', rightFrame)
+    success, rightFrame = rightCam.read()
+    if success:
+        cv.imshow('Right Camera', rightFrame)
+    else:
+        raise RuntimeError("Failed to grab frame from right cam, try to reattach camera")
 
     # Press 'q' to exit the loop
     if cv.waitKey(1) == ord('q'):
