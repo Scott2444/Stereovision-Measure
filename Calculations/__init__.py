@@ -1,3 +1,3 @@
-from .Calculations import ObjectLength
+from .Calculations import ObjectCalculations
 
-__all__ = ['ObjectLength']
+__all__ = ['ObjectCalculations']

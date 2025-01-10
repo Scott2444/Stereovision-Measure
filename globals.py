@@ -1,5 +1,5 @@
 """
-This contains the global variables of the project.
+This contains the global constants of the project.
 
 Author: Scott Haakenson
 Email: haakens3@msu.edu
