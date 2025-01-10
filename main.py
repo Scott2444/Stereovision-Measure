@@ -3,8 +3,8 @@ Main entry for the stereovision software.
 """
 
 import cv2 as cv
-from Cameras.Camera import Camera
-from ComputerVision.ObjectDet import ObjectDet
+from Cameras import Camera
+from ComputerVision import ObjectDet
 from mmengine.visualization import Visualizer
 
 

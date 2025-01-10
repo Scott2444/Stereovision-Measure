@@ -60,9 +60,9 @@ class ObjectCalculations:
         :rtype: float
         """
         if position == "Left":
-            return 90 - self._calculate_ortho_angle(pixelX)
-        else:
             return 90 + self._calculate_ortho_angle(pixelX)
+        else:
+            return 90 - self._calculate_ortho_angle(pixelX)
         
     def _calculate_point_distance(self, leftCamPixelX: int, rightCamPixelX: int) -> float:
         """
@@ -71,7 +71,7 @@ class ObjectCalculations:
 
         :param leftCamPixelX: X coordinate on the left camera
         :type leftCamPixelX: int
-        :param rightCamPixelX: Y coordinate on the right camera
+        :param rightCamPixelX: X coordinate on the right camera
         :type rightCamPixelX: int
         :return: Orthgonal distance of the point in mm
         :rtype: float
@@ -79,5 +79,30 @@ class ObjectCalculations:
         leftInteriorAngle = self._calculate_interior_angle(leftCamPixelX, "Left")
         rightInteriorAngle = self._calculate_interior_angle(rightCamPixelX, "Right")
 
+        if leftInteriorAngle + rightInteriorAngle >= 180.0:
+            raise ArithmeticError("Cannot calculate a point's distance. Angles diverage and do not form a triangle.")
+
         orthoDist = globals.CAMERA_DISTANCE / ((1 / tan(radians(leftInteriorAngle))) + (1 / tan(radians(rightInteriorAngle))))
         return orthoDist
+    
+    def _calculate_point_offset(self, leftCamPixelX: int, rightCamPixelX: int, *, useLeftCam: bool = False) -> float:
+        """
+        This calculates distance the point is from the right camera's center line.
+        Left of center is positive, Right of center is negative
+        Refer to README.md -> Software -> Stereoscopic Vision -> Stereoscopic Vision Math
+
+        :param leftCamPixelX: X coordinate on the left camera
+        :type leftCamPixelX: int
+        :param rightCamPixelX: X coordinate on the right camera
+        :type rightCamPixelX: int
+        :param useLeftCam: Calculate offset from left camera's center line
+        :type useLeftCam: bool
+        :return: Offset of a point from right center in mm
+        :rtype: float
+        """
+        orthoDist = self._calculate_point_distance(leftCamPixelX, rightCamPixelX)
+        degreesFromCenter = self._calculate_ortho_angle(rightCamPixelX)
+        if useLeftCam:
+            degreesFromCenter = self._calculate_ortho_angle(leftCamPixelX)
+        offset = orthoDist / ((1 / tan(radians(degreesFromCenter))) + (1 / tan(radians(90))))
+        return offset

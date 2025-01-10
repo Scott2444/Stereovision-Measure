@@ -14,7 +14,7 @@ The CAD Design folder contains the camera and 3D printed mount that is used for 
 
 ## Software
 
-The cameras will be differentiated as the left camera and the right camera. This is the camera POV _NOT_ the object's POV.
+The cameras will be differentiated as the left camera and the right camera. This is the left and right from the camera POV _not_ the object's POV.
 
 ### Stereoscopic Vision
 
@@ -38,24 +38,43 @@ We want to form a triangle between the two cameras and the point, so we want the
 
 For the Left Camera:
 
-θL = 90 - θFromCenter
+θL = 90 + θFromCenter
 
 For the Right Camera:
 
-θR = 90 + θFromCenter
+θR = 90 - θFromCenter
 
 ##### Finding the Distance of a Point
 
 Using the triangle formed in the previous step between the two cameras and the point, we can find the distance of the point away from the cameras (d).
 
-Since the cameras are separated at a known distance (s) and we have the two interior angles along that line, we will find d. This is the Side-Angle-Side Thereom.
+Since the cameras are separated at a known distance (s) and we have the two interior angles along that line, we will find d. This is the Angle-Side-Angle Thereom.
 
 d = s / ((1 / tan(θL)) + (1 / tan(θR)))
 
-##### Finding the Rotation of an Object
+##### Finding the Offset of an Point
 
-Now that the orthogonal distance of a point is known, we must find the rotation of an object. Not every object will be perfectly aligned with the camera, so this step must be performed first.
+Now that the orthogonal distance of a point is known, we can find the offset of a point from the center line. This is the distance between the point and the center line (orthogonally).
+
+We can draw a triangle between these three sides:
+
+1. Camera to the Point
+2. Camera center line
+3. Point to center line
+
+We know the angle between the 2 and 3 is a right angle. We also know the angle between 1 and 2 (θFromCenter from an earlier step).
+Using this we can find the length (offset) of 3 using the Angle-Side-Angle Thereom.
+
+offset = d / ((1 / tan(θFromCenter)) + (1 / tan(90)))
 
 ##### Finding the Length of an Object
 
-Now that the we know the perpendicular distance a point is from the camera, we can find the length of this object.
+Now that the we know the perpendicular distance a point is from the camera and the offset a point is from the camera's centerline, we can find the length of an object.
+
+If we create a right triangle with the length of the object as the hypotenuse, the lengths of the other sides have already been found. Point 2 is the left side of the object. Point 1 is the right side of the object
+
+sideA = |offset2 - offset1|
+sideB = |distance2 - distance1|
+length = sqrt(sideA ^ 2 + side ^ 2)
+
+### Computer Vision
